@@ -11,7 +11,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Services.`as`(ILogService::class.java).w("main jjjj ")
-        Services.`as`(ILogService::class.java).addTag(Tag("main")).w("mainxxx")
+        Services.`as`(ILogService::class.java).addTag(Tag("pad")).w("mainxxx")
         Services.`as`(ILogService::class.java).w("mainjjjjjaa")
+        Services.`as`(ILogService::class.java).addTag(Tag("padpad")).clearTagUsed().w("aaaa")
+        Services.`as`(ILogService::class.java).w("bbb")
     }
 }

@@ -70,92 +70,106 @@ class LogService : ILogService {
         return this
     }
 
+    override fun clearTagUsed(): ILogService {
+        tagUsedClear = true
+        return this
+    }
+
+
     private var debugLogService: ILogService? = null
     private var releaseLogService: ILogService? = null
     private var mTag: Tag? = null
+    private var tagUsedClear = false
     private fun logService(): ILogService? {
+        return if (BuildConfig.DEBUG) {
+            debugLog()
+        } else {
+            releaseLog()
+        }
+        return null
+    }
+    private fun getTag():String{
         val tagSt = if (mTag == null) {
             "logTag"
         } else {
             mTag.toString()
         }
-        return if (BuildConfig.DEBUG) {
-            debugLog(tagSt)
-        } else {
-            releaseLog(tagSt)
+        if (tagUsedClear){
+            tagUsedClear = false
+            mTag = null
         }
-        return null
+        return tagSt
     }
 
-    private fun debugLog(tagTag: String): ILogService? {
-        var tag = "logTag"
-        if (tag != tagTag) {
-            tag = tagTag
-        }
+    private fun debugLog(): ILogService? {
         if (debugLogService == null) {
             debugLogService = object : ILogService {
                 override fun d(msg: String?) {
-                    Log.d(tag, LogUtil.addTags(msg))
+                    Log.d(getTag(), LogUtil.addTags(msg))
                 }
 
                 override fun d(msg: String?, tr: Throwable?) {
-                    Log.d(tag, LogUtil.addTags(msg, tr))
+                    Log.d(getTag(), LogUtil.addTags(msg, tr))
                 }
 
                 override fun d(msg: String?, instance: Any?, tr: Throwable?) {
-                    Log.d(tag, LogUtil.addTags(msg, tr, instance))
+                    Log.d(getTag(), LogUtil.addTags(msg, tr, instance))
                 }
 
                 override fun e(msg: String?) {
-                    Log.e(tag, LogUtil.addTags(msg))
+                    Log.e(getTag(), LogUtil.addTags(msg))
                 }
 
                 override fun e(msg: String?, tr: Throwable?) {
-                    Log.e(tag, LogUtil.addTags(msg, tr))
+                    Log.e(getTag(), LogUtil.addTags(msg, tr))
                 }
 
                 override fun e(msg: String?, instance: Any?, tr: Throwable?) {
-                    Log.e(tag, LogUtil.addTags(msg, tr, instance))
+                    Log.e(getTag(), LogUtil.addTags(msg, tr, instance))
                 }
 
                 override fun i(msg: String?) {
-                    Log.i(tag, LogUtil.addTags(msg))
+                    Log.i(getTag(), LogUtil.addTags(msg))
                 }
 
                 override fun i(msg: String?, tr: Throwable?) {
-                    Log.i(tag, LogUtil.addTags(msg, tr))
+                    Log.i(getTag(), LogUtil.addTags(msg, tr))
                 }
 
                 override fun i(msg: String?, instance: Any?, tr: Throwable?) {
-                    Log.i(tag, LogUtil.addTags(msg, tr, instance))
+                    Log.i(getTag(), LogUtil.addTags(msg, tr, instance))
                 }
 
                 override fun v(msg: String?) {
-                    Log.v(tag, LogUtil.addTags(msg))
+                    Log.v(getTag(), LogUtil.addTags(msg))
                 }
 
                 override fun v(msg: String?, tr: Throwable?) {
-                    Log.v(tag, LogUtil.addTags(msg, tr))
+                    Log.v(getTag(), LogUtil.addTags(msg, tr))
                 }
 
                 override fun v(msg: String?, instance: Any?, tr: Throwable?) {
-                    Log.v(tag, LogUtil.addTags(msg, tr, instance))
+                    Log.v(getTag(), LogUtil.addTags(msg, tr, instance))
                 }
 
                 override fun w(msg: String?) {
-                    Log.w(tag, LogUtil.addTags(msg))
+                    Log.w(getTag(), LogUtil.addTags(msg))
                 }
 
                 override fun w(msg: String?, tr: Throwable?) {
-                    Log.w(tag, LogUtil.addTags(msg, tr))
+                    Log.w(getTag(), LogUtil.addTags(msg, tr))
                 }
 
                 override fun w(msg: String?, instance: Any?, tr: Throwable?) {
-                    Log.w(tag, LogUtil.addTags(msg, tr, instance))
+                    Log.w(getTag(), LogUtil.addTags(msg, tr, instance))
                 }
 
                 override fun addTag(tag: Tag?): ILogService {
                     return this
+                }
+
+                override fun clearTagUsed(): ILogService {
+                   return this
                 }
             }
             return debugLogService
@@ -164,7 +178,7 @@ class LogService : ILogService {
         }
     }
 
-    private fun releaseLog(tag: String): ILogService? {
+    private fun releaseLog(): ILogService? {
         return null
     }
 
