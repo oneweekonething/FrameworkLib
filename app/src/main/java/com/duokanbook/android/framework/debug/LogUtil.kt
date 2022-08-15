@@ -8,7 +8,7 @@ object LogUtil {
 
     fun addTags(msg: String?, tr: Throwable?=null, instance: Any?=null): String {
         return if (instance != null) {
-            hashCodeTag(instance).plus(mainThreadTag()).plus(" ").plus(msg).plus(tr?.message)
+            hashCodeTag(instance).plus(mainThreadTag()).plus(" ").plus(msg).plus(tr?.message?:"")
         } else {
             msg?.plus(tr?:"") ?: ""
         }

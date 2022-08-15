@@ -15,5 +15,6 @@ class MainActivity : AppCompatActivity() {
         Services.`as`(ILogService::class.java).w("mainjjjjjaa")
         Services.`as`(ILogService::class.java).addTag(Tag("padpad")).clearTagUsed().w("aaaa")
         Services.`as`(ILogService::class.java).w("bbb")
+        Services.`as`(ILogService::class.java).w("bbb",this,null)
     }
 }
