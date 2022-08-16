@@ -5,6 +5,9 @@ import com.duokanbook.android.framework.BuildConfig
 
 
 class LogService : ILogService {
+     companion object Singleton {
+         val INSTANCE: LogService = LogService()
+    }
     override fun d(msg: String?) {
         logService()?.d(msg)
     }

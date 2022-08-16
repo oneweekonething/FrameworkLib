@@ -3,6 +3,7 @@ package com.duokanbook.android.framework
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.duokanbook.android.framework.debug.ILogService
+import com.duokanbook.android.framework.debug.LogService
 import com.duokanbook.android.framework.debug.Tag
 import com.duokanbook.android.framework.services.Services
 
